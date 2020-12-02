@@ -2,6 +2,7 @@ package demo.controller;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Consumer;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,9 +19,9 @@ import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
 import demo.entity.user.User;
-import demo.entityView.UserView;
 import demo.service.UserService;
 import demo.tool.DemoConstants;
+import demo.view.entityView.UserView;
 
 @RequestMapping("/user")
 @RestController
@@ -79,7 +80,13 @@ public class UserController {
 	
 	@RequestMapping("getUsers")
 	public List<UserView> getUser(){
+		this.userService.getByCriteria("Bret");
 		return this.userService.getAllUsers();
+	}
+	
+	@RequestMapping(value="getUsersByCriteria", method = RequestMethod.POST,produces = "application/json;charset=UTF-8")
+	public List<UserView> getUserByCriteria(@RequestBody Map<String, String> criterias){
+		return this.userService.getUsersByCriterias(criterias);
 	}
 
 }

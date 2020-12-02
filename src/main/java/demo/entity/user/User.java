@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import demo.entity.BaseEntity;
-import demo.entityView.UserView;
+import demo.view.entityView.UserView;
 
 @Entity
 @Table(name = "user")
@@ -71,9 +71,8 @@ public class User extends BaseEntity {
 		this.setUpdateDate(new Date());
 
 		this.username = userV.getUsername();
-		String[] names = userV.getName().split(" ");
-		this.firstName = names[0];
-		this.lastName = names[1];
+		this.firstName = userV.getFirstName();
+		this.lastName = userV.getLastName();
 
 		this.password = userV.getPassword();
 		this.email = userV.getEmail();
@@ -85,12 +84,12 @@ public class User extends BaseEntity {
 			this.suite = userV.getAddress().getSuite();
 			this.city = userV.getAddress().getCity();
 			this.zipcode = userV.getAddress().getZipcode();
-			if(userV.getAddress().getGeo()!=null) {
+			if (userV.getAddress().getGeo() != null) {
 				this.geoLat = userV.getAddress().getGeo().getLat();
 				this.geoLng = userV.getAddress().getGeo().getLng();
 			}
 		}
-		
+
 		if (userV.getCompany() != null) {
 			this.companyName = userV.getCompany().getName();
 			this.companyCatchPhrase = userV.getCompany().getCatchPhrase();
