@@ -1,7 +1,10 @@
 package demo.tool;
 
-public interface DemoConstants {
-	public String USER_IMPORT = "[\r\n" + "  {" + "    \"id\": 1,"
+public final class DemoConstants {
+	private DemoConstants() {
+		throw new IllegalStateException("Constant class");
+	}
+	public static final String USER_IMPORT = "[\r\n" + "  {" + "    \"id\": 1,"
 			+ "    \"name\": \"Leanne Graham\"," + "    \"username\": \"Bret\","
 			+ "    \"email\": \"Sincere@april.biz\"," + "    \"address\": {" + "      \"street\": \"Kulas Light\","
 			+ "      \"suite\": \"Apt. 556\"," + "      \"city\": \"Gwenborough\","

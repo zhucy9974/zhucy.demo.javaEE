@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import demo.entity.BaseEntity;
-import demo.view.entityView.UserView;
+import demo.view.entityview.UserView;
 
 @Entity
 @Table(name = "user")

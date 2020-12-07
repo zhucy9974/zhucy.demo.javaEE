@@ -22,5 +22,8 @@ public interface UserRepository extends JpaRepository<User, Long>{
 	// nativeQuery为true代表使用SQL语言
 	@Query(value = "SELECT * FROM user WHERE name=?", nativeQuery = true)
 	public User findNameSql(String name);
+	
+	
+	public User findByEmail(String email);
 
 }

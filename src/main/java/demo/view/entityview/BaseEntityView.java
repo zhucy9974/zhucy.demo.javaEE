@@ -1,11 +1,6 @@
-package demo.view.entityView;
+package demo.view.entityview;
 
 import java.util.Date;
-
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
 public class BaseEntityView {
 	private Long id;

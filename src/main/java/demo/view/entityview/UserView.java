@@ -1,9 +1,6 @@
-package demo.view.entityView;
+package demo.view.entityview;
 
 import java.io.Serializable;
-
-import javax.persistence.Column;
-
 import demo.entity.user.User;
 
 public class UserView extends BaseEntityView implements Serializable {
@@ -12,9 +9,9 @@ public class UserView extends BaseEntityView implements Serializable {
 	private String username;
 
 	private String name;
-	
+
 	private String firstName;
-	
+
 	private String lastName;
 
 	private String password;
@@ -147,8 +144,6 @@ public class UserView extends BaseEntityView implements Serializable {
 		this.lastName = lastName;
 	}
 
-
-
 	public static class Address implements Serializable {
 
 		private static final long serialVersionUID = -7684351022544149028L;
@@ -162,9 +157,9 @@ public class UserView extends BaseEntityView implements Serializable {
 		private String zipcode;
 
 		private Geo geo;
-		
+
 		public Address() {
-			
+
 		}
 
 		public String getStreet() {
@@ -216,9 +211,9 @@ public class UserView extends BaseEntityView implements Serializable {
 		private Double lat;
 
 		private Double lng;
-		
+
 		public Geo() {
-			
+
 		}
 
 		public Double getLat() {
@@ -247,9 +242,9 @@ public class UserView extends BaseEntityView implements Serializable {
 		private String catchPhrase;
 
 		private String bs;
-		
+
 		public Company() {
-			
+
 		}
 
 		public String getName() {
@@ -275,8 +270,6 @@ public class UserView extends BaseEntityView implements Serializable {
 		public void setBs(String bs) {
 			this.bs = bs;
 		}
-		
-		
 
 	}
 

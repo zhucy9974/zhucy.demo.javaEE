@@ -3,32 +3,21 @@ package demo.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicReference;
+import java.util.Optional;
 
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-import org.hibernate.Criteria;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.hql.internal.CollectionSubqueryFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
-
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-
 import demo.dao.UserRepository;
 import demo.entity.user.User;
 import demo.service.UserService;
 import demo.tool.DBTools;
-import demo.tool.Iterables;
-import demo.view.entityView.UserView;
+import demo.view.entityview.UserView;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -39,7 +28,12 @@ public class UserServiceImpl implements UserService {
 	private EntityManager entityManager;
 
 	public UserView findById(Long id) {
-		return new UserView(userDao.findById(id).get());
+		Optional<User> userOp = userDao.findById(id);
+		if(userOp.isPresent()) {
+			return new UserView(userOp.get());
+		}else {
+			return null;
+		}
 	}
 
 	public UserView save(User user) {
@@ -59,10 +53,8 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<UserView> getAllUsers() {
 		List<User> users = this.userDao.findAll();
-		List<UserView> userViews = new ArrayList<UserView>();
-		users.forEach(user -> {
-			userViews.add(new UserView(user));
-		});
+		List<UserView> userViews = new ArrayList<>();
+		users.forEach(user -> userViews.add(new UserView(user)));
 		return userViews;
 	}
 
@@ -92,7 +84,6 @@ public class UserServiceImpl implements UserService {
 		TypedQuery<User> query = this.entityManager.createQuery(q);
 		query.setParameter("un", username);
 		List<User> list = query.getResultList();
-		System.out.println(list.size());
 		// 已经过时
 		// Criteria criteria = session.createCriteria(User.class);
 	}
@@ -100,10 +91,8 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<UserView> getUsersByCriterias(Map<String, String> criterias) {
 		List<User> users = DBTools.getElementsByCriteria(criterias, User.class, this.entityManager);
-		List<UserView> userVs = new ArrayList<UserView>();
-		users.forEach(user->{
-			userVs.add(new UserView(user));
-		});
+		List<UserView> userVs = new ArrayList<>();
+		users.forEach(user->userVs.add(new UserView(user)));
 		return userVs;
 	}
 

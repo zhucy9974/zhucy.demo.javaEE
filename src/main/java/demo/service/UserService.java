@@ -2,11 +2,8 @@ package demo.service;
 
 import java.util.List;
 import java.util.Map;
-
-import com.google.gson.JsonObject;
-
 import demo.entity.user.User;
-import demo.view.entityView.UserView;
+import demo.view.entityview.UserView;
 
 public interface UserService {
 	public UserView findById(Long id);// 查询用户通过id
