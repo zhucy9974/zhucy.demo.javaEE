@@ -66,7 +66,7 @@ public class UserController {
 				}.getType());
 
 		users.forEach(userV -> userService.save(new User(userV)));
-		return "Ok";
+		return "Ok"; 
 	}
 	
 	@RequestMapping("getUsers")
