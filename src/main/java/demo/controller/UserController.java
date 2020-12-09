@@ -47,6 +47,11 @@ public class UserController {
 		return userService.save(user);
 	}
 	
+	@PostMapping(value = "patch", produces = "application/json;charset=UTF-8")
+	public UserView updateUser(@RequestBody UserView userV) {
+		return this.userService.updateUser(userV);
+	}
+	
 	@PostMapping(value = "createUser", produces = "application/json;charset=UTF-8")
 	public UserView createUser(@RequestBody UserView userV) {
 		return this.userService.createUser(userV);

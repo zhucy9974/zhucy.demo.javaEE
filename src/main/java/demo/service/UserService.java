@@ -18,6 +18,8 @@ public interface UserService {
 
 	public UserView createUser(UserView userV);
 	
+	public UserView updateUser(UserView userV);
+	
 	public void getByCriteria(String username);
 
 	public List<UserView> getUsersByCriterias(Map<String, String> criterias);

@@ -13,8 +13,8 @@ import javax.persistence.criteria.Root;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import demo.dao.UserRepository;
 import demo.entity.user.User;
+import demo.repository.UserRepository;
 import demo.service.UserService;
 import demo.tool.DBTools;
 import demo.view.entityview.UserView;
@@ -22,13 +22,12 @@ import demo.view.entityview.UserView;
 @Service
 public class UserServiceImpl implements UserService {
 	@Autowired
-	private UserRepository userDao;
-
+	private UserRepository userRepository;
 	@Autowired
 	private EntityManager entityManager;
 
 	public UserView findById(Long id) {
-		Optional<User> userOp = userDao.findById(id);
+		Optional<User> userOp = userRepository.findById(id);
 		if(userOp.isPresent()) {
 			return new UserView(userOp.get());
 		}else {
@@ -37,22 +36,22 @@ public class UserServiceImpl implements UserService {
 	}
 
 	public UserView save(User user) {
-		return new UserView(userDao.save(user));
+		return new UserView(userRepository.save(user));
 	}
 
 	public UserView findNameHql(String name) {
-		return new UserView(userDao.findNameHql(name));
+		return new UserView(userRepository.findNameHql(name));
 	}
 
 	@Override
 	public void deleteById(Long id) {
-		this.userDao.deleteById(id);
+		this.userRepository.deleteById(id);
 
 	}
 
 	@Override
 	public List<UserView> getAllUsers() {
-		List<User> users = this.userDao.findAll();
+		List<User> users = this.userRepository.findAll();
 		List<UserView> userViews = new ArrayList<>();
 		users.forEach(user -> userViews.add(new UserView(user)));
 		return userViews;
@@ -63,7 +62,7 @@ public class UserServiceImpl implements UserService {
 		if (userV.getPassword() == null) {
 			userV.setPassword("12345678");
 		}
-		User user = this.userDao.save(new User(userV));
+		User user = this.userRepository.save(new User(userV));
 		return new UserView(user);
 	}
 
@@ -94,6 +93,12 @@ public class UserServiceImpl implements UserService {
 		List<UserView> userVs = new ArrayList<>();
 		users.forEach(user->userVs.add(new UserView(user)));
 		return userVs;
+	}
+
+	@Override
+	public UserView updateUser(UserView userV) {
+		User user = this.userRepository.save(new User(userV));
+		return new UserView(user);
 	}
 
 }

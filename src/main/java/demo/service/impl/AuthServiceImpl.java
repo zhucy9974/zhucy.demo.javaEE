@@ -7,8 +7,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import demo.dao.UserRepository;
 import demo.entity.user.User;
+import demo.repository.UserRepository;
 import demo.service.AuthService;
 
 @Service

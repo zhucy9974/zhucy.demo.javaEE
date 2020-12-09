@@ -66,9 +66,17 @@ public class User extends BaseEntity {
 
 	public User(UserView userV) {
 		super();
-		this.setStatus(1);
-		this.setCreateDate(new Date());
-		this.setUpdateDate(new Date());
+		if(userV.getId()==null) {
+			this.setStatus(1);
+			this.setCreateDate(new Date());
+		}else {
+			//TODO à faire correctement ces deux attributes
+			this.setCreateDate(new Date());
+			this.setStatus(1);
+			
+			this.setId(userV.getId());
+			this.setUpdateDate(new Date());
+		}
 
 		this.username = userV.getUsername();
 		this.firstName = userV.getFirstName();
