@@ -69,6 +69,9 @@ public class User extends BaseEntity {
 		if(userV.getId()==null) {
 			this.setStatus(1);
 			this.setCreateDate(new Date());
+			
+			//TODO à supprimer
+			this.setUpdateDate(new Date());
 		}else {
 			//TODO à faire correctement ces deux attributes
 			this.setCreateDate(new Date());
