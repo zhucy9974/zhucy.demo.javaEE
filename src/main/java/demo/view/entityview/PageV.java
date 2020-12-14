@@ -2,10 +2,7 @@ package demo.view.entityview;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.data.domain.Page;
-
-import demo.config.constants.AppConstants;
 
 public class PageV<T> {
 	private int currentPage;
@@ -13,6 +10,19 @@ public class PageV<T> {
 	private long totalEl;
 	private List<T> elements;
 	private List<Integer> pagesOfNav = new ArrayList<>();
+
+	public PageV() {
+	};
+
+	public PageV(List<T> list, long totalEl, int currentPage, int pageSize) {
+		this.currentPage = currentPage;
+		if (totalEl == 0)
+			this.totalPages = 1;
+		else
+			this.totalPages = Integer.valueOf((totalEl / pageSize + (totalEl % pageSize == 0 ? 0 : 1)) + "");
+		this.totalEl = totalEl;
+		this.elements = list;
+	}
 
 	public PageV(Page page) {
 		this.currentPage = page.getNumber() + 1;

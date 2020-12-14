@@ -17,7 +17,7 @@ public interface UserService {
 	
 	public List<UserView> getAllUsers();
 	
-	public PageV<UserView> getUsersByPage(int page, int pageSize);
+	public PageV<UserView> getUsersByPage(Map<String, Object> criterias);
 
 	public UserView createUser(UserView userV);
 	
@@ -25,6 +25,6 @@ public interface UserService {
 	
 	public void getByCriteria(String username);
 
-	public List<UserView> getUsersByCriterias(Map<String, String> criterias);
+	public PageV<UserView> getUsersByCriteriasAndPagination(Map<String, Object> criteriasAndPagination);
 
 }

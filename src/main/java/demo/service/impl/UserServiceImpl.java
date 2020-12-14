@@ -32,9 +32,9 @@ public class UserServiceImpl implements UserService {
 
 	public UserView findById(Long id) {
 		Optional<User> userOp = userRepository.findById(id);
-		if(userOp.isPresent()) {
+		if (userOp.isPresent()) {
 			return new UserView(userOp.get());
-		}else {
+		} else {
 			return null;
 		}
 	}
@@ -60,10 +60,13 @@ public class UserServiceImpl implements UserService {
 		users.forEach(user -> userViews.add(new UserView(user)));
 		return userViews;
 	}
-	
+
 	@Override
-	public PageV<UserView> getUsersByPage(int page, int pageSize) {
-		Pageable pageParam = PageRequest.of(page, pageSize);
+	public PageV<UserView> getUsersByPage(Map<String, Object> criterias) {
+		
+		Pageable pageParam = PageRequest.of(Integer.valueOf(criterias.get("page").toString())-1, Integer.valueOf(criterias.get("pageSize").toString()));
+		Map<String, String> criterias_ = (Map<String, String>) criterias.get("criterias");
+		
 		Page<User> pageUsers= this.userRepository.findAll(pageParam);
 		PageV<UserView> pageUsersV = new PageV<>(pageUsers);
 		List<UserView> userViews = new ArrayList<>();
@@ -103,11 +106,19 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<UserView> getUsersByCriterias(Map<String, String> criterias) {
-		List<User> users = DBTools.getElementsByCriteria(criterias, User.class, this.entityManager);
+	public PageV<UserView> getUsersByCriteriasAndPagination(Map<String, Object> criteriasAndPagination) {
+		
+		int currentPage = (Integer) criteriasAndPagination.get("page");
+		int pageSize = (Integer)criteriasAndPagination.get("pageSize");
+		Map<String, String> criterias = (Map<String, String>)criteriasAndPagination.get("criterias");
+		
+		Map<String, Object> res = DBTools.getElementsByCriteria(criterias, 
+				User.class, this.entityManager,
+				currentPage, 
+				pageSize);
 		List<UserView> userVs = new ArrayList<>();
-		users.forEach(user->userVs.add(new UserView(user)));
-		return userVs;
+		((List<User>)res.get("results")).forEach(user -> userVs.add(new UserView(user)));
+		return new PageV<>(userVs,(long) res.get("maxResults"), currentPage, pageSize);
 	}
 
 	@Override

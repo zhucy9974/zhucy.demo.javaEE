@@ -54,7 +54,7 @@ public class UserController {
 		return this.userService.updateUser(userV);
 	}
 	
-	@PostMapping(value = "createUser", produces = "application/json;charset=UTF-8")
+	@PostMapping(value = "post", produces = "application/json;charset=UTF-8")
 	public UserView createUser(@RequestBody UserView userV) {
 		return this.userService.createUser(userV);
 	}
@@ -76,14 +76,14 @@ public class UserController {
 		return "Ok";
 	}
 	
-	@PostMapping(value = "getUsers", produces = "application/json;charset=UTF-8")
-	public PageV<UserView> getUser(@RequestBody Map<String, String> criterias){
-		return this.userService.getUsersByPage(Integer.valueOf(criterias.get("page"))-1, Integer.valueOf(criterias.get("pageSize")));
+	@PostMapping(value = "get", produces = "application/json;charset=UTF-8")
+	public PageV<UserView> getUser(@RequestBody Map<String, Object> criterias){
+		return this.userService.getUsersByCriteriasAndPagination(criterias);
 	}
 	
 	@PostMapping(value="getUsersByCriteria", produces = "application/json;charset=UTF-8")
-	public List<UserView> getUserByCriteria(@RequestBody Map<String, String> criterias){
-		return this.userService.getUsersByCriterias(criterias);
+	public PageV<UserView> getUserByCriteria(@RequestBody Map<String, String> criterias){
+		return this.userService.getUsersByCriteriasAndPagination(null);
 	}
 
 }
