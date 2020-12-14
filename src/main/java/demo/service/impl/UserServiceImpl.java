@@ -12,11 +12,15 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import demo.entity.user.User;
 import demo.repository.UserRepository;
 import demo.service.UserService;
 import demo.tool.DBTools;
+import demo.view.entityview.PageV;
 import demo.view.entityview.UserView;
 
 @Service
@@ -55,6 +59,17 @@ public class UserServiceImpl implements UserService {
 		List<UserView> userViews = new ArrayList<>();
 		users.forEach(user -> userViews.add(new UserView(user)));
 		return userViews;
+	}
+	
+	@Override
+	public PageV<UserView> getUsersByPage(int page, int pageSize) {
+		Pageable pageParam = PageRequest.of(page, pageSize);
+		Page<User> pageUsers= this.userRepository.findAll(pageParam);
+		PageV<UserView> pageUsersV = new PageV<>(pageUsers);
+		List<UserView> userViews = new ArrayList<>();
+		pageUsers.getContent().forEach(user -> userViews.add(new UserView(user)));
+		pageUsersV.setElements(userViews);
+		return pageUsersV;
 	}
 
 	@Override

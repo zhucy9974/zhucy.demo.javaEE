@@ -4,7 +4,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.function.BiConsumer;
 
-//Utile pour les sets et lists, mais pas le map
 public class Iterables {
 
 	private Iterables() {

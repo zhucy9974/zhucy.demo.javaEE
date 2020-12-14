@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
@@ -16,6 +17,7 @@ import com.google.gson.reflect.TypeToken;
 import demo.entity.user.User;
 import demo.service.UserService;
 import demo.tool.DemoConstants;
+import demo.view.entityview.PageV;
 import demo.view.entityview.UserView;
 
 @RequestMapping("/user")
@@ -74,10 +76,9 @@ public class UserController {
 		return "Ok";
 	}
 	
-	@RequestMapping("getUsers")
-	public List<UserView> getUser(){
-		this.userService.getByCriteria("Bret");
-		return this.userService.getAllUsers();
+	@PostMapping(value = "getUsers", produces = "application/json;charset=UTF-8")
+	public PageV<UserView> getUser(@RequestBody Map<String, String> criterias){
+		return this.userService.getUsersByPage(Integer.valueOf(criterias.get("page"))-1, Integer.valueOf(criterias.get("pageSize")));
 	}
 	
 	@PostMapping(value="getUsersByCriteria", produces = "application/json;charset=UTF-8")
