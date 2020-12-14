@@ -67,7 +67,7 @@ public class UserServiceImpl implements UserService {
 				pageSize);
 		List<UserView> userVs = new ArrayList<>();
 		((List<User>)res.get("results")).forEach(user -> userVs.add(new UserView(user)));
-		return new PageV<>(userVs,(long) res.get("maxResults"), currentPage, pageSize);
+		return new PageV<>(userVs,(long) res.get("totelEl"), currentPage, pageSize);
 	}
 
 	@Override

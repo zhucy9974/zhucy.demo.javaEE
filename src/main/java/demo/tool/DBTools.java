@@ -23,9 +23,17 @@ public class DBTools {
 
 	public static <E> Map<String, Object> getElementsByCriteria(Map<String, String> criterias, Class<E> c,
 			EntityManager entityManager, int pageNumber, int pageSize) {
-		String orderBy = criterias.get("orderBy");
-		criterias.remove("orderBy");
+		
+		//récupérer l'info order by, et puis supprimer cette info pour que le 
+		//map est pure pour les critaires
+		String orderBy = null;
+		if(criterias!=null) {
+			orderBy = criterias.get("orderBy");
+			criterias.remove("orderBy");
+		}
+		
 		boolean hasCriterias = !CollectionUtils.isEmpty(criterias);
+		//on met @e pour qu'on pourra le remplacer pour deux requêtes différentes
 		StringBuilder jpql = new StringBuilder().append("select @e from " + c.getName() + " e ");
 		if (hasCriterias) {
 			jpql.append(" where ");
@@ -36,12 +44,14 @@ public class DBTools {
 		if(StringUtils.isNotBlank(orderBy)) {
 			jpql.append(" order by e."+orderBy);
 		}
-
+		
+		//requête pour récupérer le numbre totale d'élement selon les critaires
 		TypedQuery<Long> queryCount = entityManager.createQuery(jpql.toString().replace("@e", "count(e)"), Long.class);
 		if (hasCriterias)
 			Iterables.forEach(criterias, (i, entry) -> queryCount.setParameter(entry.getKey(), entry.getValue()));
 		Long totelEl = queryCount.getSingleResult();
 
+		//requête pour récupérer les éléments selon la pagination et les critaires
 		TypedQuery<E> query = entityManager.createQuery(jpql.toString().replace("@e", "e"), c);
 		if (hasCriterias)
 			Iterables.forEach(criterias, (i, entry) -> query.setParameter(entry.getKey(), entry.getValue()));
@@ -52,7 +62,7 @@ public class DBTools {
 		}
 
 		Map<String, Object> res = new HashMap<>();
-		res.put("maxResults", totelEl);
+		res.put("totelEl", totelEl);
 		res.put("results", query.getResultList());
 		return res;
 
