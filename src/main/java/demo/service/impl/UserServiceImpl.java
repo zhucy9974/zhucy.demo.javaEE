@@ -39,40 +39,10 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
-	public UserView save(User user) {
-		return new UserView(userRepository.save(user));
-	}
-
-	public UserView findNameHql(String name) {
-		return new UserView(userRepository.findNameHql(name));
-	}
-
 	@Override
 	public void deleteById(Long id) {
 		this.userRepository.deleteById(id);
 
-	}
-
-	@Override
-	public List<UserView> getAllUsers() {
-		List<User> users = this.userRepository.findAll();
-		List<UserView> userViews = new ArrayList<>();
-		users.forEach(user -> userViews.add(new UserView(user)));
-		return userViews;
-	}
-
-	@Override
-	public PageV<UserView> getUsersByPage(Map<String, Object> criterias) {
-		
-		Pageable pageParam = PageRequest.of(Integer.valueOf(criterias.get("page").toString())-1, Integer.valueOf(criterias.get("pageSize").toString()));
-		Map<String, String> criterias_ = (Map<String, String>) criterias.get("criterias");
-		
-		Page<User> pageUsers= this.userRepository.findAll(pageParam);
-		PageV<UserView> pageUsersV = new PageV<>(pageUsers);
-		List<UserView> userViews = new ArrayList<>();
-		pageUsers.getContent().forEach(user -> userViews.add(new UserView(user)));
-		pageUsersV.setElements(userViews);
-		return pageUsersV;
 	}
 
 	@Override
@@ -82,27 +52,6 @@ public class UserServiceImpl implements UserService {
 		}
 		User user = this.userRepository.save(new User(userV));
 		return new UserView(user);
-	}
-
-	/**
-	 * juste un example
-	 */
-	@Override
-	public void getByCriteria(String username) {
-
-		// pour obtenir la session hibernate
-		// Session s = this.entityManager.unwrap(Session.class); or
-		// Session s = (Session) this.entityManager.getDelegate();
-
-		CriteriaBuilder cb = this.entityManager.getCriteriaBuilder();
-		CriteriaQuery<User> q = cb.createQuery(User.class);
-		Root<User> r = q.from(User.class);
-		q.where(cb.equal(r.get("username"), cb.parameter(String.class, "un")));
-		TypedQuery<User> query = this.entityManager.createQuery(q);
-		query.setParameter("un", username);
-		List<User> list = query.getResultList();
-		// 已经过时
-		// Criteria criteria = session.createCriteria(User.class);
 	}
 
 	@Override

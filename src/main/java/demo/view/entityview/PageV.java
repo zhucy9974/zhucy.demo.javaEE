@@ -24,12 +24,6 @@ public class PageV<T> {
 		this.elements = list;
 	}
 
-	public PageV(Page page) {
-		this.currentPage = page.getNumber() + 1;
-		this.totalPages = page.getTotalPages();
-		this.totalEl = page.getTotalElements();
-	}
-
 	public int getCurrentPage() {
 		return currentPage;
 	}

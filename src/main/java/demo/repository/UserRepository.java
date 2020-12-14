@@ -11,15 +11,14 @@ import demo.entity.user.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long>{
-	public Optional<User> findById(Long id);// 查询用户通过id
+	public Optional<User> findById(Long id);
 
 	@SuppressWarnings("unchecked")
-	public User save(User user);// 保存用户
+	public User save(User user);
 
 	@Query(value = "SELECT u FROM User u WHERE name=:name")
 	public User findNameHql(@Param("name") String name);
 
-	// nativeQuery为true代表使用SQL语言
 	@Query(value = "SELECT * FROM user WHERE name=?", nativeQuery = true)
 	public User findNameSql(String name);
 	
