@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.CollectionUtils;
 
 public class DBTools {
@@ -21,14 +23,18 @@ public class DBTools {
 
 	public static <E> Map<String, Object> getElementsByCriteria(Map<String, String> criterias, Class<E> c,
 			EntityManager entityManager, int pageNumber, int pageSize) {
-		StringBuilder jpql = new StringBuilder().append("select @e from " + c.getName() + " e ");
+		String orderBy = criterias.get("orderBy");
+		criterias.remove("orderBy");
 		boolean hasCriterias = !CollectionUtils.isEmpty(criterias);
+		StringBuilder jpql = new StringBuilder().append("select @e from " + c.getName() + " e ");
 		if (hasCriterias) {
 			jpql.append(" where ");
-
 			Iterables.forEach(criterias, (i, entry) -> jpql.append(" e." + entry.getKey() + " like concat('%',:"
 					+ entry.getKey() + ",'%')" + ((i == (criterias.size() - 1)) ? "" : " and ")));
-
+		}
+		
+		if(StringUtils.isNotBlank(orderBy)) {
+			jpql.append(" order by e."+orderBy);
 		}
 
 		TypedQuery<Long> queryCount = entityManager.createQuery(jpql.toString().replace("@e", "count(e)"), Long.class);
