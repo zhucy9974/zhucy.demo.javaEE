@@ -1,5 +1,6 @@
 package demo.tool;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -9,6 +10,10 @@ import javax.persistence.TypedQuery;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.CollectionUtils;
+
+import demo.entity.User;
+import demo.view.entityview.PageV;
+import demo.view.entityview.UserView;
 
 public class DBTools {
 
@@ -66,5 +71,19 @@ public class DBTools {
 		res.put("results", query.getResultList());
 		return res;
 
+	}
+	
+	public static <E,K> PageV getElementsWithPaginationByCriteria(Map<String, Object> criteriasAndPagination, EntityManager entityManager, Class<E> c, TransferEntity<K> transfer){
+		int currentPage = (Integer) criteriasAndPagination.get("page");
+		int pageSize = (Integer)criteriasAndPagination.get("pageSize");
+		Map<String, String> criterias = (Map<String, String>)criteriasAndPagination.get("criterias");
+		
+		Map<String, Object> res = DBTools.getElementsByCriteria(criterias, 
+				c, entityManager,
+				currentPage, 
+				pageSize);
+		List<K> entityVs = new ArrayList<>();
+		((List<E>)res.get("results")).forEach(entity -> transfer.TransferEntityToEntityV(entity,entityVs));
+		return new PageV<>(entityVs,(long) res.get("totelEl"), currentPage, pageSize);
 	}
 }

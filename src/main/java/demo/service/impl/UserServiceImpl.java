@@ -16,7 +16,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import demo.entity.user.User;
+
+import demo.entity.User;
 import demo.repository.UserRepository;
 import demo.service.UserService;
 import demo.tool.DBTools;
@@ -56,18 +57,8 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public PageV<UserView> getUsersByCriteriasAndPagination(Map<String, Object> criteriasAndPagination) {
-		
-		int currentPage = (Integer) criteriasAndPagination.get("page");
-		int pageSize = (Integer)criteriasAndPagination.get("pageSize");
-		Map<String, String> criterias = (Map<String, String>)criteriasAndPagination.get("criterias");
-		
-		Map<String, Object> res = DBTools.getElementsByCriteria(criterias, 
-				User.class, this.entityManager,
-				currentPage, 
-				pageSize);
-		List<UserView> userVs = new ArrayList<>();
-		((List<User>)res.get("results")).forEach(user -> userVs.add(new UserView(user)));
-		return new PageV<>(userVs,(long) res.get("totelEl"), currentPage, pageSize);
+		return DBTools.getElementsWithPaginationByCriteria(criteriasAndPagination, 
+				this.entityManager, User.class, (entity, list)->list.add(new UserView((User) entity)));
 	}
 
 	@Override

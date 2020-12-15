@@ -12,7 +12,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
-import demo.entity.user.User;
+import demo.entity.User;
 import demo.service.UserService;
 import demo.tool.DemoConstants;
 import demo.view.entityview.PageV;

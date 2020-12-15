@@ -1,7 +1,8 @@
 package demo.view.entityview;
 
 import java.io.Serializable;
-import demo.entity.user.User;
+
+import demo.entity.User;
 
 public class UserView extends BaseEntityView implements Serializable {
 	private static final long serialVersionUID = 8801350529438033008L;
