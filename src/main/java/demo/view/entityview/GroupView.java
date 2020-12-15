@@ -2,13 +2,16 @@ package demo.view.entityview;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
+
 import demo.entity.Group;
 
 public class GroupView extends BaseEntityView implements Serializable {
 
 	private static final long serialVersionUID = 2538079483292512055L;
 	private String name;
-	private String description;
+	private String shortDesc;
+	private String longDesc;
 
 	public GroupView() {
 
@@ -21,7 +24,8 @@ public class GroupView extends BaseEntityView implements Serializable {
 		this.setUpdateDate(group.getUpdateDate());
 
 		this.name = group.getName();
-		this.description = group.getDescription();
+		this.shortDesc = group.getShortDesc();
+		this.longDesc = group.getLongDesc();
 	}
 
 	public String getName() {
@@ -32,12 +36,20 @@ public class GroupView extends BaseEntityView implements Serializable {
 		this.name = name;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getShortDesc() {
+		return shortDesc;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setShortDesc(String shortDesc) {
+		this.shortDesc = shortDesc;
+	}
+
+	public String getLongDesc() {
+		return longDesc;
+	}
+
+	public void setLongDesc(String longDesc) {
+		this.longDesc = longDesc;
 	}
 
 }

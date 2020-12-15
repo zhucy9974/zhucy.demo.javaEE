@@ -15,8 +15,11 @@ public class Group extends BaseEntity {
 	@Column(name = "name")
 	private String name;
 
-	@Column(name = "description")
-	private String description;
+	@Column(name = "short_desc")
+	private String shortDesc;
+	
+	@Column(name = "long_desc")
+	private String longDesc;
 
 	public Group() {
 		super();
@@ -39,7 +42,8 @@ public class Group extends BaseEntity {
 			this.setUpdateDate(new Date());
 		}
 		this.name = groupV.getName();
-		this.description = groupV.getDescription();
+		this.shortDesc = groupV.getShortDesc();
+		this.longDesc = groupV.getLongDesc();
 		
 	}
 
@@ -51,12 +55,20 @@ public class Group extends BaseEntity {
 		this.name = name;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getShortDesc() {
+		return shortDesc;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setShortDesc(String shortDesc) {
+		this.shortDesc = shortDesc;
+	}
+
+	public String getLongDesc() {
+		return longDesc;
+	}
+
+	public void setLongDesc(String longDesc) {
+		this.longDesc = longDesc;
 	}
 
 }
