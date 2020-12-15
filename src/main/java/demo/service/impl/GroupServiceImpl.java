@@ -29,13 +29,13 @@ public class GroupServiceImpl implements GroupService {
 	}
 
 	@Override
-	public GroupView createOrUpdateUser(GroupView groupV) {
+	public GroupView createOrUpdate(GroupView groupV) {
 		Group g = groupRepository.save(new Group(groupV));
 		return new GroupView(g);
 	}
 
 	@Override
-	public PageV<GroupView> getGroupsByCriteriasAndPagination(Map<String, Object> criteriasAndPagination) {
+	public PageV<GroupView> getByCriteriasAndPagination(Map<String, Object> criteriasAndPagination) {
 		return DBTools.getElementsWithPaginationByCriteria(criteriasAndPagination, 
 				this.entityManager, User.class, (entity, list)->list.add(new UserView((User) entity)));
 	}

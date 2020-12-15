@@ -83,7 +83,7 @@ public class DBTools {
 				currentPage, 
 				pageSize);
 		List<K> entityVs = new ArrayList<>();
-		((List<E>)res.get("results")).forEach(entity -> transfer.TransferEntityToEntityV(entity,entityVs));
+		((List<E>)res.get("results")).forEach(entity -> transfer.transferEntityToEntityV(entity,entityVs));
 		return new PageV<>(entityVs,(long) res.get("totelEl"), currentPage, pageSize);
 	}
 }

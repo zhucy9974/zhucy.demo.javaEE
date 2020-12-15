@@ -8,7 +8,7 @@ import demo.view.entityview.PageV;
 public interface GroupService {
 	public void deleteById(Long id);
 
-	public GroupView createOrUpdateUser(GroupView userV);
+	public GroupView createOrUpdate(GroupView userV);
 
-	public PageV<GroupView> getGroupsByCriteriasAndPagination(Map<String, Object> criteriasAndPagination);
+	public PageV<GroupView> getByCriteriasAndPagination(Map<String, Object> criteriasAndPagination);
 }

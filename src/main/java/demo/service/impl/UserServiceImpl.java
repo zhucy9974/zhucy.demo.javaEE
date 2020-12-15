@@ -47,8 +47,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UserView createUser(UserView userV) {
-		if (userV.getPassword() == null) {
+	public UserView createOrUpdate(UserView userV) {
+		if (userV.getId() == null) {
 			userV.setPassword("12345678");
 		}
 		User user = this.userRepository.save(new User(userV));
@@ -56,15 +56,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public PageV<UserView> getUsersByCriteriasAndPagination(Map<String, Object> criteriasAndPagination) {
+	public PageV<UserView> getByCriteriasAndPagination(Map<String, Object> criteriasAndPagination) {
 		return DBTools.getElementsWithPaginationByCriteria(criteriasAndPagination, 
 				this.entityManager, User.class, (entity, list)->list.add(new UserView((User) entity)));
-	}
-
-	@Override
-	public UserView updateUser(UserView userV) {
-		User user = this.userRepository.save(new User(userV));
-		return new UserView(user);
 	}
 
 }

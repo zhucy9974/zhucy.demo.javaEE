@@ -8,10 +8,8 @@ public interface UserService {
 
 	public void deleteById(Long id);
 
-	public UserView createUser(UserView userV);
-	
-	public UserView updateUser(UserView userV);
+	public UserView createOrUpdate(UserView userV);
 
-	public PageV<UserView> getUsersByCriteriasAndPagination(Map<String, Object> criteriasAndPagination);
+	public PageV<UserView> getByCriteriasAndPagination(Map<String, Object> criteriasAndPagination);
 
 }
