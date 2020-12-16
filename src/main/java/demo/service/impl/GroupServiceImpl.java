@@ -37,7 +37,7 @@ public class GroupServiceImpl implements GroupService {
 	@Override
 	public PageV<GroupView> getByCriteriasAndPagination(Map<String, Object> criteriasAndPagination) {
 		return DBTools.getElementsWithPaginationByCriteria(criteriasAndPagination, 
-				this.entityManager, User.class, (entity, list)->list.add(new UserView((User) entity)));
+				this.entityManager, Group.class, (entity, list)->list.add(new GroupView((Group) entity)));
 	}
 
 	

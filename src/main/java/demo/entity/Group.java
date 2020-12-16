@@ -10,7 +10,7 @@ import demo.view.entityview.GroupView;
 import demo.view.entityview.UserView;
 
 @Entity
-@Table(name = "group")
+@Table(name = "group_app")
 public class Group extends BaseEntity {
 	@Column(name = "name")
 	private String name;

@@ -20,24 +20,24 @@ public class GroupController {
 	private GroupService groupService;
 	
 	@PostMapping(value = "patch", produces = "application/json;charset=UTF-8")
-	public GroupView updateUser(@RequestBody GroupView groupV) {
+	public GroupView updateGroup(@RequestBody GroupView groupV) {
 		return this.groupService.createOrUpdate(groupV);
 	}
 	
 	@PostMapping(value = "post", produces = "application/json;charset=UTF-8")
-	public GroupView createUser(@RequestBody GroupView groupV) {
+	public GroupView createGroup(@RequestBody GroupView groupV) {
 		return this.groupService.createOrUpdate(groupV);
 	}
 
 	@PostMapping(value = "delete", produces = "application/json;charset=UTF-8")
-	public String delete(@RequestBody String param) {
+	public String deleteGroup(@RequestBody String param) {
 		JsonObject jobj = new Gson().fromJson(param, JsonObject.class);
 		this.groupService.deleteById(jobj.get("id").getAsLong());
 		return "delete ok!";
 	}
 	
 	@PostMapping(value = "get", produces = "application/json;charset=UTF-8")
-	public PageV<GroupView> getUser(@RequestBody Map<String, Object> criterias){
+	public PageV<GroupView> getGroup(@RequestBody Map<String, Object> criterias){
 		return this.groupService.getByCriteriasAndPagination(criterias);
 	}
 
