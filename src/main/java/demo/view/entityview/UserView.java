@@ -34,8 +34,8 @@ public class UserView extends BaseEntityView implements Serializable {
 	public UserView(User user) {
 		this.setId(user.getId());
 		this.setStatus(user.getStatus());
-		this.setCreateDate(user.getCreateDate());
-		this.setUpdateDate(user.getUpdateDate());
+		this.setDateCreate(user.getDateCreate());
+		this.setDateUpdate(user.getDateUpdate());
 
 		this.username = user.getUsername();
 		this.name = user.getFirstName() + " " + user.getLastName();

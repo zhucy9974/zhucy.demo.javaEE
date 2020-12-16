@@ -20,8 +20,8 @@ public class GroupView extends BaseEntityView implements Serializable {
 	public GroupView(Group group) {
 		this.setId(group.getId());
 		this.setStatus(group.getStatus());
-		this.setCreateDate(group.getCreateDate());
-		this.setUpdateDate(group.getUpdateDate());
+		this.setDateCreate(group.getDateCreate());
+		this.setDateUpdate(group.getDateUpdate());
 
 		this.name = group.getName();
 		this.shortDesc = group.getShortDesc();

@@ -7,9 +7,9 @@ public class BaseEntityView {
 
 	private Integer status;
 
-	private Date createDate;
+	private Date dateCreate;
 
-	private Date updateDate;
+	private Date dateUpdate;
 
 	public Long getId() {
 		return id;
@@ -27,19 +27,20 @@ public class BaseEntityView {
 		this.status = status;
 	}
 
-	public Date getCreateDate() {
-		return createDate;
+	public Date getDateCreate() {
+		return dateCreate;
 	}
 
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
+	public void setDateCreate(Date dateCreate) {
+		this.dateCreate = dateCreate;
 	}
 
-	public Date getUpdateDate() {
-		return updateDate;
+	public Date getDateUpdate() {
+		return dateUpdate;
 	}
 
-	public void setUpdateDate(Date updateDate) {
-		this.updateDate = updateDate;
+	public void setDateUpdate(Date dateUpdate) {
+		this.dateUpdate = dateUpdate;
 	}
+	
 }

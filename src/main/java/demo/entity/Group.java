@@ -29,17 +29,17 @@ public class Group extends BaseEntity {
 		super();
 		if(groupV.getId()==null) {
 			this.setStatus(1);
-			this.setCreateDate(new Date());
+			this.setDateCreate(new Date());
 			
 			//TODO à supprimer
-			this.setUpdateDate(new Date());
+			this.setDateUpdate(new Date());
 		}else {
 			//TODO à faire correctement ces deux attributes
-			this.setCreateDate(new Date());
+			this.setDateCreate(new Date());
 			this.setStatus(1);
 			
 			this.setId(groupV.getId());
-			this.setUpdateDate(new Date());
+			this.setDateUpdate(new Date());
 		}
 		this.name = groupV.getName();
 		this.shortDesc = groupV.getShortDesc();

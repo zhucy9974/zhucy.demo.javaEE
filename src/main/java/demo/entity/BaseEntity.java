@@ -22,11 +22,11 @@ public class BaseEntity {
 	@Column(name = "status")
 	private Integer status;
 
-	@Column(name = "create_date")
-	private Date createDate;
+	@Column(name = "date_create")
+	private Date dateCreate;
 
-	@Column(name = "update_date")
-	private Date updateDate;
+	@Column(name = "date_update")
+	private Date dateUpdate;
 
 	public Long getId() {
 		return id;
@@ -43,27 +43,28 @@ public class BaseEntity {
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
+	
 
-	public Date getCreateDate() {
-		return createDate;
+	public Date getDateCreate() {
+		return dateCreate;
 	}
 
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
+	public void setDateCreate(Date dateCreate) {
+		this.dateCreate = dateCreate;
 	}
 
-	public Date getUpdateDate() {
-		return updateDate;
+	public Date getDateUpdate() {
+		return dateUpdate;
 	}
 
-	public void setUpdateDate(Date updateDate) {
-		this.updateDate = updateDate;
+	public void setDateUpdate(Date dateUpdate) {
+		this.dateUpdate = dateUpdate;
 	}
 
 	@Override
 	public String toString() {
 		return "BaseEntity [id=" + id  + ", status=" + status
-				+ ", createDate=" + createDate + ", updateDate=" + updateDate + "]";
+				+ ", dateCreate=" + dateCreate + ", dateUpdate=" + dateUpdate + "]";
 	}
 
 }
