@@ -1,5 +1,6 @@
 package demo.controller;
 
+import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -39,6 +40,12 @@ public class GroupController {
 	@PostMapping(value = "get", produces = "application/json;charset=UTF-8")
 	public PageV<GroupView> getGroup(@RequestBody Map<String, Object> criterias){
 		return this.groupService.getByCriteriasAndPagination(criterias);
+	}
+	
+	@PostMapping(value = "getByUserId", produces = "application/json;charset=UTF-8")
+	public List<GroupView> getGroups(@RequestBody String param){
+		JsonObject jobj = new Gson().fromJson(param, JsonObject.class);
+		return this.groupService.getGroups(jobj.get("id").getAsLong());
 	}
 
 }

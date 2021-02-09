@@ -5,6 +5,9 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import demo.view.entityview.UserView;
@@ -60,23 +63,31 @@ public class User extends BaseEntity {
 	@Column(name = "co_bs")
 	private String comanyBusiness;
 
+	@ManyToMany
+	@JoinTable(
+			name="user_group",
+			joinColumns = @JoinColumn(name="user_id"),
+			inverseJoinColumns = @JoinColumn(name="group_id")
+	)
+	private List<Group> groups;
+
 	public User() {
 		super();
 	}
 
 	public User(UserView userV) {
 		super();
-		if(userV.getId()==null) {
+		if (userV.getId() == null) {
 			this.setStatus(1);
 			this.setDateCreate(new Date());
-			
-			//TODO à supprimer
+
+			// TODO à supprimer
 			this.setDateUpdate(new Date());
-		}else {
-			//TODO à faire correctement ces deux attributes
+		} else {
+			// TODO à faire correctement ces deux attributes
 			this.setDateCreate(new Date());
 			this.setStatus(1);
-			
+
 			this.setId(userV.getId());
 			this.setDateUpdate(new Date());
 		}
@@ -234,6 +245,14 @@ public class User extends BaseEntity {
 
 	public void setWebsite(String website) {
 		this.website = website;
+	}
+
+	public List<Group> getGroups() {
+		return groups;
+	}
+
+	public void setGroups(List<Group> groups) {
+		this.groups = groups;
 	}
 
 	@Override

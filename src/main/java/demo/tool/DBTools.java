@@ -36,7 +36,7 @@ public class DBTools {
 			orderBy = criterias.get("orderBy");
 			criterias.remove("orderBy");
 		}
-		
+		 
 		boolean hasCriterias = !CollectionUtils.isEmpty(criterias);
 		//on met @e pour qu'on pourra le remplacer pour deux requêtes différentes
 		StringBuilder jpql = new StringBuilder().append("select @e from " + c.getName() + " e ");

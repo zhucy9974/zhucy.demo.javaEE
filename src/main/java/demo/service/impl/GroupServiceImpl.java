@@ -40,6 +40,4 @@ public class GroupServiceImpl implements GroupService {
 				this.entityManager, Group.class, (entity, list)->list.add(new GroupView((Group) entity)));
 	}
 
-	
-
 }

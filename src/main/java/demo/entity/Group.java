@@ -1,9 +1,13 @@
 package demo.entity;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import demo.view.entityview.GroupView;
@@ -17,9 +21,13 @@ public class Group extends BaseEntity {
 
 	@Column(name = "short_desc")
 	private String shortDesc;
-	
+
 	@Column(name = "long_desc")
 	private String longDesc;
+
+	@ManyToMany
+	@JoinTable(name = "user_group", joinColumns = @JoinColumn(name = "group_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
+	private List<User> users;
 
 	public Group() {
 		super();
@@ -27,24 +35,24 @@ public class Group extends BaseEntity {
 
 	public Group(GroupView groupV) {
 		super();
-		if(groupV.getId()==null) {
+		if (groupV.getId() == null) {
 			this.setStatus(1);
 			this.setDateCreate(new Date());
-			
-			//TODO à supprimer
+
+			// TODO à supprimer
 			this.setDateUpdate(new Date());
-		}else {
-			//TODO à faire correctement ces deux attributes
+		} else {
+			// TODO à faire correctement ces deux attributes
 			this.setDateCreate(new Date());
 			this.setStatus(1);
-			
+
 			this.setId(groupV.getId());
 			this.setDateUpdate(new Date());
 		}
 		this.name = groupV.getName();
 		this.shortDesc = groupV.getShortDesc();
 		this.longDesc = groupV.getLongDesc();
-		
+
 	}
 
 	public String getName() {
@@ -69,6 +77,14 @@ public class Group extends BaseEntity {
 
 	public void setLongDesc(String longDesc) {
 		this.longDesc = longDesc;
+	}
+
+	public List<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<User> users) {
+		this.users = users;
 	}
 
 }

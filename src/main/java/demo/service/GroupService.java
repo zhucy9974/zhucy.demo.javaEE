@@ -1,5 +1,6 @@
 package demo.service;
 
+import java.util.List;
 import java.util.Map;
 
 import demo.view.entityview.GroupView;
@@ -11,4 +12,6 @@ public interface GroupService {
 	public GroupView createOrUpdate(GroupView userV);
 
 	public PageV<GroupView> getByCriteriasAndPagination(Map<String, Object> criteriasAndPagination);
+	
+	public List<GroupView> getGroups(Long id);
 }

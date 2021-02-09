@@ -1,6 +1,7 @@
 package demo.view.entityview;
 
 import java.io.Serializable;
+import java.util.List;
 
 import demo.entity.User;
 
@@ -26,6 +27,8 @@ public class UserView extends BaseEntityView implements Serializable {
 	private Company company;
 
 	private Address address;
+	
+	private List<GroupView> groups;
 
 	public UserView() {
 
@@ -144,6 +147,16 @@ public class UserView extends BaseEntityView implements Serializable {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
+
+	public List<GroupView> getGroups() {
+		return groups;
+	}
+
+	public void setGroups(List<GroupView> groups) {
+		this.groups = groups;
+	}
+
+
 
 	public static class Address implements Serializable {
 

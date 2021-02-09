@@ -6,21 +6,16 @@ import java.util.Map;
 import java.util.Optional;
 
 import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import demo.entity.Group;
 import demo.entity.User;
+import demo.repository.GroupRepository;
 import demo.repository.UserRepository;
 import demo.service.UserService;
 import demo.tool.DBTools;
+import demo.view.entityview.GroupView;
 import demo.view.entityview.PageV;
 import demo.view.entityview.UserView;
 
@@ -28,6 +23,8 @@ import demo.view.entityview.UserView;
 public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserRepository userRepository;
+	@Autowired
+	private GroupRepository groupRepository;
 	@Autowired
 	private EntityManager entityManager;
 
@@ -52,11 +49,14 @@ public class UserServiceImpl implements UserService {
 			userV.setPassword("12345678");
 		}
 		User user = this.userRepository.save(new User(userV));
+		//Optional<User> op = Optional.ofNullable(null);
+		//op.map(User::getUsername).ifPresent(name -> {});
 		return new UserView(user);
 	}
 
 	@Override
 	public PageV<UserView> getByCriteriasAndPagination(Map<String, Object> criteriasAndPagination) {
+		//this.groupRepository.findByUsers_Id((long)23);
 		return DBTools.getElementsWithPaginationByCriteria(criteriasAndPagination, 
 				this.entityManager, User.class, (entity, list)->list.add(new UserView((User) entity)));
 	}
