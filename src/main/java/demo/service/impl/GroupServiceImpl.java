@@ -1,6 +1,8 @@
 package demo.service.impl;
 
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
 
@@ -38,6 +40,13 @@ public class GroupServiceImpl implements GroupService {
 	public PageV<GroupView> getByCriteriasAndPagination(Map<String, Object> criteriasAndPagination) {
 		return DBTools.getElementsWithPaginationByCriteria(criteriasAndPagination, 
 				this.entityManager, Group.class, (entity, list)->list.add(new GroupView((Group) entity)));
+	}
+
+	@Override
+	public List<GroupView> getGroups(Long id) {
+		return groupRepository.findByUsers_Id(id).stream()
+				.map(GroupView::new)
+				.collect(Collectors.toList());
 	}
 
 }
