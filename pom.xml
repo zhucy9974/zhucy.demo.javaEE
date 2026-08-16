@@ -59,6 +59,19 @@
 			<version>3.11</version>
 		</dependency>
 
+		<!-- Hashage sécurisé des mots de passe -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-crypto</artifactId>
+		</dependency>
+
+		<!-- Création et vérification des tokens JWT -->
+		<dependency>
+			<groupId>com.auth0</groupId>
+			<artifactId>java-jwt</artifactId>
+			<version>3.18.3</version>
+		</dependency>
+
 	</dependencies>
 	<build>
 		<finalName>demo</finalName>
