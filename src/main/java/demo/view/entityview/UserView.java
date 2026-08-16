@@ -3,6 +3,7 @@ package demo.view.entityview;
 import java.io.Serializable;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import demo.entity.User;
 
 public class UserView extends BaseEntityView implements Serializable {
@@ -16,6 +17,7 @@ public class UserView extends BaseEntityView implements Serializable {
 
 	private String lastName;
 
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	private String password;
 
 	private String email;

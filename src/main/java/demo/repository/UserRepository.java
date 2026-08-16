@@ -16,12 +16,11 @@ public interface UserRepository extends JpaRepository<User, Long>{
 	@SuppressWarnings("unchecked")
 	public User save(User user);
 
-	@Query(value = "SELECT u FROM User u WHERE name=:name")
-	public User findNameHql(@Param("name") String name);
+	@Query("SELECT u FROM User u WHERE username=:username")
+	public User findByUserNameHql(@Param("username") String username);
 
-	@Query(value = "SELECT * FROM user WHERE name=?", nativeQuery = true)
-	public User findNameSql(String name);
-	
+	@Query(value = "SELECT * FROM app_user WHERE username=?1", nativeQuery = true)
+	public User findByUserNameSql(String username);
 	
 	public User findByEmail(String email);
 

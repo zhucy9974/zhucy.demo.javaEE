@@ -45,16 +45,18 @@ public class DBTools {
 			Iterables.forEach(criterias, (i, entry) -> jpql.append(" e." + entry.getKey() + " like concat('%',:"
 					+ entry.getKey() + ",'%')" + ((i == (criterias.size() - 1)) ? "" : " and ")));
 		}
-		
-		if(StringUtils.isNotBlank(orderBy)) {
-			jpql.append(" order by e."+orderBy);
-		}
-		
+
+
 		//requête pour récupérer le numbre totale d'élement selon les critaires
 		TypedQuery<Long> queryCount = entityManager.createQuery(jpql.toString().replace("@e", "count(e)"), Long.class);
 		if (hasCriterias)
 			Iterables.forEach(criterias, (i, entry) -> queryCount.setParameter(entry.getKey(), entry.getValue()));
 		Long totelEl = queryCount.getSingleResult();
+
+		// ORDER BY uniquement pour la requête qui récupère les éléments
+		if(StringUtils.isNotBlank(orderBy)) {
+			jpql.append(" order by e."+orderBy);
+		}
 
 		//requête pour récupérer les éléments selon la pagination et les critaires
 		TypedQuery<E> query = entityManager.createQuery(jpql.toString().replace("@e", "e"), c);
